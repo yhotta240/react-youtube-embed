@@ -11,8 +11,8 @@ function App() {
       <div className='mb-12'>
         <Header></Header>
       </div>
-      <div className='flex justify-center mb-20'>
-        <YoutubeEmbed data={youtubeData} classTitle={"text-xl"} flex></YoutubeEmbed>
+      <div className='' >
+        <YoutubeEmbed data={youtubeData} classTitle={"text-xl mb-2"} ></YoutubeEmbed>
       </div>
     </div>
   );
