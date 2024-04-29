@@ -11,8 +11,12 @@ function App() {
       <div className='mb-12'>
         <Header></Header>
       </div>
-      <div className='' >
-        <YoutubeEmbed data={youtubeData} classTitle={"text-xl mb-2"} ></YoutubeEmbed>
+      <div className='m-4' >
+        <YoutubeEmbed
+          data={youtubeData}
+          maxWidth={600}
+          classTitle={"md:text-xl mb-2 font-bold"}
+        ></YoutubeEmbed>
       </div>
     </div>
   );

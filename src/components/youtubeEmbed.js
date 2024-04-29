@@ -1,6 +1,6 @@
 import React from 'react'
 
-const YoutubeEmbed = ({ data, maxWidth = 600, maxHeight = 400, classTitle }) => {
+const YoutubeEmbed = ({ data, maxWidth = 600, classTitle }) => {
   const videoInfo = data || [];
 
   return (
@@ -8,15 +8,12 @@ const YoutubeEmbed = ({ data, maxWidth = 600, maxHeight = 400, classTitle }) => 
       {
         videoInfo.map((video, index) => (
           <div key={index} className="my-5">
+
             <div
-              style={{
-                maxWidth: `${maxWidth}px`,
-                maxHeight: `${maxHeight}px`,
-                position: 'relative',
-                margin: '0 auto',
-              }}
+              className=" relative mx-auto" 
+              style={{ maxWidth: `${maxWidth}px` }}
             >
-              <h2 className={`text-xl font-bold ${classTitle}`}>{video.title}</h2>
+              <h2 className={`${classTitle}`}>{video.title}</h2>
 
               <iframe
                 className=" w-full aspect-video"
