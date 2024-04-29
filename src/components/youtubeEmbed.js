@@ -10,7 +10,7 @@ const YoutubeEmbed = ({ data, maxWidth = 600, classTitle }) => {
           <div key={index} className="my-5">
 
             <div
-              className=" relative mx-auto" 
+              className=" relative mx-auto"
               style={{ maxWidth: `${maxWidth}px` }}
             >
               <h2 className={`${classTitle}`}>{video.title}</h2>
