@@ -133,9 +133,9 @@ YouTube Data APIなどのAPIを使用すると、YouTubeから動画の情報を
 
 
 ## YoutubeEmbedコンポーネントの説明
-デフォルト値の設定とプロップスの使用
-クラスの適用とスタイリング
-動画情報の解析とビデオIDの取得
+デフォルト値の設定とプロップスの使用<br>
+クラスの適用とスタイリング<br>
+動画情報の解析とビデオIDの取得<br>
 
 ```react:youtubeEmbed.js
 import React from 'react';
