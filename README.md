@@ -15,7 +15,6 @@
 https://www.youtube.com/watch?v=VIDEO_ID　標準形式のURL
 https://youtu.be/VIDEO_ID　短縮URL
 https://www.youtube.com/embed/VIDEO_ID　埋め込みプレーヤーのURL
-https://www.youtube.com/playlist?list=PLAYLIST_ID　プレイリストのURL
 
 ```
 
