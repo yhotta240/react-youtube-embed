@@ -8,14 +8,12 @@
 - タイトルの表示
 - カスタムスタイリング（今回はTailwind cssを採用）
 - 動画情報のURLまたはビデオIDの両方に対応
-- レスポンシブ
 
 **対応している動画のURL形式について**
 ```
 https://www.youtube.com/watch?v=VIDEO_ID　標準形式のURL
 https://youtu.be/VIDEO_ID　短縮URL
 https://www.youtube.com/embed/VIDEO_ID　埋め込みプレーヤーのURL
-
 ```
 
 
@@ -30,16 +28,26 @@ https://react-youtube-embed.vercel.app/
 | プロパティ名       | 説明                                                                              | タイプ           | デフォルト値 |
 |-------------------|-----------------------------------------------------------------------------------|------------------|--------------|
 | data              | YouTube動画の情報を含む配列。各要素はタイトルとURLまたはビデオIDを持つオブジェクト。   | array            | []           |
+| options           | YouTube動画の再生オプションを指定します。                                            | array            | []           |
 | maxWidth          | 埋め込みコンテナーの最大幅（ピクセル単位）。                                           | number           | 600          |
 | classContainer    | コンテナー要素に適用するカスタムクラス。                                               | string           | ""           |
 | classTitle        | タイトル要素に適用するカスタムクラス。                                                 | string           | ""           |
 | classIframe       | 埋め込みiframeに適用するカスタムクラス。                                               | string           | ""           |
+
+**optionsプロパティについて**
+| オプション   | 説明                           | デフォルト値 |
+|-------------|--------------------------------|--------------|
+| loop        | ループ再生回数（0または正の整数、0は無限ループ） | 1         |
+| mute        | ミュート（trueまたはfalse）         | false        |
+| inline      | インライン再生（trueまたはfalse）   | false        |
+| autoplay    | 自動再生（trueまたはfalse）         | false        |
 
 ```react:App.js
 import React from 'react';
 import YoutubeEmbed from './YoutubeEmbed';
 
 const App = () => {
+  // YouTube動画情報
   const youtubeData = [
     {
       title: "動画1",
@@ -50,13 +58,24 @@ const App = () => {
       videoId: "videoId2"
     }
   ];
-
+  
+  // optionsプロパティ
+  const options = {
+    loop: 1,
+    mute: false,
+    inline: true,
+    autoPlay: true,
+    // width: 700,
+    // height: 400,
+  };
+  
   return (
     <div>
       <h1>YouTube動画</h1>
       <div className='m-4' >
         <YoutubeEmbed
           data={youtubeData}
+          options={options}
           maxWidth={600}
           classContainer={"my-6 relative mx-auto "}
           classTitle={"md:text-xl mb-2 font-bold"}
@@ -114,9 +133,9 @@ YouTube Data APIなどのAPIを使用すると、YouTubeから動画の情報を
 
 
 ## YoutubeEmbedコンポーネントの説明
-デフォルト値の設定とプロップスの使用<br>
-クラスの適用とスタイリング<br>
-動画情報の解析とビデオIDの取得<br>
+デフォルト値の設定とプロップスの使用
+クラスの適用とスタイリング
+動画情報の解析とビデオIDの取得
 
 ```react:youtubeEmbed.js
 import React from 'react';
@@ -124,12 +143,14 @@ import React from 'react';
 // YoutubeEmbedコンポーネント
 // props:
 // - data: 動画情報の配列。各要素は{ title: string, url?: string, videoId?: string }形式であり、urlまたはvideoIdのいずれかを含む。
+// - options: 動画再生のオプションを指定するオブジェクト。オプションは{ loop?: number, mute?: boolean, inline?: boolean, autoplay?: boolean }の形式で、デフォルトは空のオブジェクト
 // - maxWidth: コンポーネントの最大幅（デフォルトは600px）
 // - classContainer: コンテナーのクラス名（デフォルトは空文字列）
 // - classTitle: タイトルのクラス名（デフォルトは空文字列）
 // - classIframe: iframeのクラス名（デフォルトは空文字列）
-const YoutubeEmbed = ({ data, maxWidth = 600, classContainer = "", classTitle = "", classIframe = "" }) => {
-  // 動画情報のデフォルト値
+
+const YoutubeEmbed = ({ data, options, maxWidth = 600, classContainer = "", classTitle = "", classIframe = "" }) => {
+  // 動画情報が提供されない場合のデフォルト値
   const videoInfo = data || [];
 
   return (
@@ -137,14 +158,16 @@ const YoutubeEmbed = ({ data, maxWidth = 600, classContainer = "", classTitle = 
       {/* 動画情報のマップ */}
       {videoInfo.map((video, index) => (
         <div key={index} className={`${classContainer}`} style={{ maxWidth: `${maxWidth}px` }}>
-          {/* タイトルの表示 */}
+          {/* タイトル */}
           <h2 className={`${classTitle}`}>{video.title}</h2>
-          {/* YouTube動画の埋め込み */}
+          {/* 動画の埋め込み */}
           <iframe
+            width={`${options.width}`}
+            height={`${options.height}`}
             className={`${classIframe}`}
             title={video.title}
-            src={`https://www.youtube.com/embed/${getVideoId(video)}`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            src={`https://www.youtube.com/embed/${getVideoId(video)}?${Object.entries(options).map(([key, value]) => `${key}=${value}`).join('&')}`}
+            allow="accelerometer;  autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
             allowFullScreen
           ></iframe>
         </div>
@@ -168,6 +191,7 @@ const getVideoId = (video) => {
 };
 
 export default YoutubeEmbed;
+
 
 ```
 
