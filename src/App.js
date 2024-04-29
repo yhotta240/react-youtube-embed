@@ -15,7 +15,9 @@ function App() {
         <YoutubeEmbed
           data={youtubeData}
           maxWidth={600}
+          classContainer={"my-6 relative mx-auto"}
           classTitle={"md:text-xl mb-2 font-bold"}
+          classIframe={"w-full aspect-video"}
         ></YoutubeEmbed>
       </div>
     </div>

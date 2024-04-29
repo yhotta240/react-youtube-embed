@@ -1,4 +1,30 @@
 [
-    { "title": "【Ado】 唱", "url": "https://www.youtube.com/watch?v=pgXpM4l_MwI&ab_channel=Ado" },
-    { "title": "YOASOBI「アイドル」 Official Music Video", "url": "https://www.youtube.com/watch?v=ZRtdQ81jPUQ" }
+    {
+        "title": "【Ado】 唱",
+        "url": "https://www.youtube.com/watch?v=pgXpM4l_MwI&ab_channel=Ado"
+    },
+    {
+        "title": "YOASOBI「アイドル」 Official Music Video",
+        "videoId": "ZRtdQ81jPUQ"
+    },
+    {
+        "title": "藤井 風 - \"きらり\" Official Video",
+        "url": "https://www.youtube.com/watch?v=SfPkl7lol7g&ab_channel=FujiiKaze"
+    },
+    {
+        "title": "Creepy Nuts｢Bling-Bang-Bang-Born｣ × TV Anime｢マッシュル-MASHLE-｣ Collaboration Music Video #BBBBダンス",
+        "videoId": "mLW35YMzELE"
+    },
+    {
+        "title": "米津玄師 Kenshi Yonezu - KICKBACK",
+        "url": "https://www.youtube.com/watch?v=M2cckDmNLMI&ab_channel=KenshiYonezu%E7%B1%B3%E6%B4%A5%E7%8E%84%E5%B8%AB"
+    },
+    {
+        "title": "King Gnu - SPECIALZ",
+        "url": "https://www.youtube.com/watch?v=fhzKLBZJC3w&ab_channel=KingGnuofficialYouTubechannel"
+    },
+    {
+        "title": "怪獣の花唄 / Vaundy ： MUSIC VIDEO",
+        "url": "https://www.youtube.com/watch?v=UM9XNpgrqVk&ab_channel=Vaundy"
+    }
 ]
