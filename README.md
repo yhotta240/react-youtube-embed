@@ -1,6 +1,6 @@
 
 ## 概要
-この記事では、ReactでYouTube動画を埋め込むためのカスタムコンポーネントであるYoutubeEmbedを作成する方法を紹介します。このコンポーネントを使用することで、簡単にYouTube動画を表示し、アプリケーションに組み込むことができます。
+ReactでYouTube動画を埋め込むためのカスタムコンポーネントであるYoutubeEmbedを作成しました。このコンポーネントを使用することで、簡単にYouTube動画を表示し、アプリケーションに組み込むことができます。
 
 ## コンポーネントの機能
 
@@ -133,9 +133,9 @@ YouTube Data APIなどのAPIを使用すると、YouTubeから動画の情報を
 
 
 ## YoutubeEmbedコンポーネントの説明
-デフォルト値の設定とプロップスの使用
-クラスの適用とスタイリング
-動画情報の解析とビデオIDの取得
+デフォルト値の設定とプロップスの使用<br>
+クラスの適用とスタイリング<br>
+動画情報の解析とビデオIDの取得<br>
 
 ```react:youtubeEmbed.js
 import React from 'react';
@@ -195,12 +195,5 @@ export default YoutubeEmbed;
 
 ```
 
-
-
-
-
-## まとめ
-
-この記事では、ReactでYouTube動画を簡単に埋め込むためのYoutubeEmbedコンポーネントを作成する方法を紹介しました。このコンポーネントを使用することで、動画の埋め込みやカスタマイズが容易になります。
 
 https://github.com/yhotta240/react-youtube-embed
