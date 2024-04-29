@@ -1,70 +1,182 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 概要
+この記事では、ReactでYouTube動画を埋め込むためのカスタムコンポーネントであるYoutubeEmbedを作成する方法を紹介します。このコンポーネントを使用することで、簡単にYouTube動画を表示し、アプリケーションに組み込むことができます。
 
-## Available Scripts
+## コンポーネントの機能
 
-In the project directory, you can run:
+- YouTube動画の埋め込み
+- タイトルの表示
+- カスタムスタイリング（今回はTailwind cssを採用）
+- 動画情報のURLまたはビデオIDの両方に対応
+- レスポンシブ
 
-### `npm start`
+**対応している動画のURL形式について**
+```
+https://www.youtube.com/watch?v=VIDEO_ID　標準形式のURL
+https://youtu.be/VIDEO_ID　短縮URL
+https://www.youtube.com/embed/VIDEO_ID　埋め込みプレーヤーのURL
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## デモ
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+https://react-youtube-embed.vercel.app/
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 使用例
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Propsの説明
+| プロパティ名       | 説明                                                                              | タイプ           | デフォルト値 |
+|-------------------|-----------------------------------------------------------------------------------|------------------|--------------|
+| data              | YouTube動画の情報を含む配列。各要素はタイトルとURLまたはビデオIDを持つオブジェクト。   | array            | []           |
+| maxWidth          | 埋め込みコンテナーの最大幅（ピクセル単位）。                                           | number           | 600          |
+| classContainer    | コンテナー要素に適用するカスタムクラス。                                               | string           | ""           |
+| classTitle        | タイトル要素に適用するカスタムクラス。                                                 | string           | ""           |
+| classIframe       | 埋め込みiframeに適用するカスタムクラス。                                               | string           | ""           |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```react:App.js
+import React from 'react';
+import YoutubeEmbed from './YoutubeEmbed';
 
-### `npm run eject`
+const App = () => {
+  const youtubeData = [
+    {
+      title: "動画1",
+      url: "https://www.youtube.com/watch?v=videoId1"
+    },
+    {
+      title: "動画2",
+      videoId: "videoId2"
+    }
+  ];
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  return (
+    <div>
+      <h1>YouTube動画</h1>
+      <div className='m-4' >
+        <YoutubeEmbed
+          data={youtubeData}
+          maxWidth={600}
+          classContainer={"my-6 relative mx-auto "}
+          classTitle={"md:text-xl mb-2 font-bold"}
+          classIframe={"w-full aspect-video"}
+        ></YoutubeEmbed>
+      </div>
+    </div>
+  );
+};
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+export default App;
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+### YouTube動画情報の取得方法
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+YouTube動画の情報を取得する方法は主に3つあります。以下に、JavaScriptオブジェクトとJSONを使用した静的なデータ表現、そしてAPIやデータベースを活用して動的に情報を取得する方法です。
 
-## Learn More
+#### JavaScriptオブジェクト:
+JavaScriptオブジェクトを使用してYouTube動画の情報を表現する場合、静的なデータを直接コードに組み込みます。
+```React:youtubeData.js
+const youtubeData = [
+  {
+    title: "動画1のタイトル",
+    url: "https://www.youtube.com/watch?v=videoId1"
+  },
+  {
+    title: "動画2のタイトル",
+    videoId: "videoId2"
+  }
+];
+```
+各要素は、YouTube動画の情報を表すオブジェクトです。各オブジェクトには、`title`プロパティには動画のタイトルが、`url`または`videoId`プロパティにはそれぞれYouTube動画のURLまたはビデオIDが含まれます。
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+#### JSON形式:
+JavaScriptオブジェクトと同じ情報を持ちます。
+```json:youtubeData.json
+[
+  {
+    "title": "動画1のタイトル",
+    "url": "https://www.youtube.com/watch?v=videoId1"
+  },
+  {
+    "title": "動画2のタイトル",
+    "videoId": "videoId2"
+  }
+]
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+JSON形式のデータは、JavaScriptのオブジェクトとして解釈されることができます。
 
-### Analyzing the Bundle Size
+#### APIやデータベースを使用:
+YouTube Data APIなどのAPIを使用すると、YouTubeから動画の情報を取得し、必要な情報を取得したり、検索したりすることができます。データベースを使用する場合は、動画の情報をデータベースに保存し、必要に応じてデータベースから取得します。
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## YoutubeEmbedコンポーネントの説明
+デフォルト値の設定とプロップスの使用<br>
+クラスの適用とスタイリング<br>
+動画情報の解析とビデオIDの取得<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```react:youtubeEmbed.js
+import React from 'react';
 
-### Advanced Configuration
+// YoutubeEmbedコンポーネント
+// props:
+// - data: 動画情報の配列。各要素は{ title: string, url?: string, videoId?: string }形式であり、urlまたはvideoIdのいずれかを含む。
+// - maxWidth: コンポーネントの最大幅（デフォルトは600px）
+// - classContainer: コンテナーのクラス名（デフォルトは空文字列）
+// - classTitle: タイトルのクラス名（デフォルトは空文字列）
+// - classIframe: iframeのクラス名（デフォルトは空文字列）
+const YoutubeEmbed = ({ data, maxWidth = 600, classContainer = "", classTitle = "", classIframe = "" }) => {
+  // 動画情報のデフォルト値
+  const videoInfo = data || [];
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+  return (
+    <>
+      {/* 動画情報のマップ */}
+      {videoInfo.map((video, index) => (
+        <div key={index} className={`${classContainer}`} style={{ maxWidth: `${maxWidth}px` }}>
+          {/* タイトルの表示 */}
+          <h2 className={`${classTitle}`}>{video.title}</h2>
+          {/* YouTube動画の埋め込み */}
+          <iframe
+            className={`${classIframe}`}
+            title={video.title}
+            src={`https://www.youtube.com/embed/${getVideoId(video)}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
+        </div>
+      ))}
+    </>
+  );
+};
 
-### Deployment
+// 動画情報からビデオIDを取得する関数
+const getVideoId = (video) => {
+  if (video.url) {
+    // URLが提供されている場合、ビデオIDを抽出
+    const videoIdMatch = video.url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/ ]{11})/);
+    return videoIdMatch ? videoIdMatch[1] : "";
+  } else if (video.videoId) {
+    // videoIdが提供されている場合、そのまま返す
+    return video.videoId;
+  } else {
+    return "";
+  }
+};
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+export default YoutubeEmbed;
 
-### `npm run build` fails to minify
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+
+## まとめ
+
+この記事では、ReactでYouTube動画を簡単に埋め込むためのYoutubeEmbedコンポーネントを作成する方法を紹介しました。このコンポーネントを使用することで、動画の埋め込みやカスタマイズが容易になります。
+
+https://github.com/yhotta240/react-youtube-embed
